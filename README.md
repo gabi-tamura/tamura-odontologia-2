@@ -26,7 +26,7 @@ Landing page Next.js + TypeScript + CSS Modules para ser finalizada no Codex e a
 - O telefone (11) 4033-2004 é público, mas **não foi confirmado como WhatsApp**; deliberadamente não é usado como destino de mensagens.
 - O serviço de cirurgia bucomaxilofacial aparece associado a profissional do consultório em diretório público; confirme se permanece disponível. Os outros cards são descritivos de contato, não promessa de serviços específicos.
 - Imagens locais são **ilustrações criadas para a demo**. Substitua por fotos reais com autorização, inclusive em `hero-concept.svg`, `space-concept.svg`, `detail-concept.svg`, `care-concept.svg` ou ajuste URLs de background no CSS.
-- Para publicar: altere `robots` em `app/layout.tsx` para `{index:true,follow:true}` somente após aprovação, configure `NEXT_PUBLIC_SITE_URL`, revise SEO e todas as informações.
+- Para publicar: configure `NEXT_PUBLIC_SITE_URL` com o domínio definitivo e revise todas as informações. A indexação é habilitada automaticamente no build de produção com domínio configurado, exceto em previews da Vercel ou quando `SITE_NOINDEX=true`.
 - A URL do iframe do mapa usa a consulta pública com `output=embed`; confirme o carregamento final ou substitua por link de incorporação oficial obtido no Google Maps.
 - O formulário não transmite nem armazena dados em servidor: compõe a URL `wa.me`, e o visitante deve clicar em enviar no próprio WhatsApp.
 - Recomenda-se adicionar política de privacidade adequada antes de publicação e evitar coletar informações de saúde no formulário.
@@ -53,3 +53,16 @@ Landing page Next.js + TypeScript + CSS Modules para ser finalizada no Codex e a
 - **Número do WhatsApp:** `.env.local` com `NEXT_PUBLIC_WHATSAPP_NUMBER=5511XXXXXXXXX`.
 
 A imagem original do logotipo foi fornecida pelo usuário.
+
+## SEO e publicação
+
+- Configure `NEXT_PUBLIC_SITE_URL=https://SEU-DOMINIO` no ambiente de hospedagem **antes do build**. Use a mesma versão do domínio em todos os cadastros; redirecione as alternativas (www/sem www e HTTP) para ela na hospedagem.
+- Sem domínio configurado, desenvolvimento local e previews da Vercel recebem `noindex`. Para outras hospedagens, defina `SITE_NOINDEX=true` nas prévias. Robots permite rastreamento para que o Google consiga ler essa diretiva.
+- O projeto gera canonical, `/robots.txt`, `/sitemap.xml`, imagem de compartilhamento e JSON-LD do tipo Dentist com nome, endereço e telefone. Horários e especialidades não entram no JSON-LD até serem confirmados.
+- Cadastre o domínio no Google Search Console. Se usar verificação por tag HTML, configure `GOOGLE_SITE_VERIFICATION` com o token e faça novo build. Envie `/sitemap.xml` e solicite indexação da página inicial na inspeção de URL.
+- No Perfil da Empresa no Google, mantenha nome, endereço, telefone e link do site consistentes com os dados da clínica. Confirme horários, categorias e serviços com o responsável.
+- Substitua as ilustrações por fotos autorizadas e revise os textos demonstrativos antes de publicar. Acrescente informações verificadas sobre equipe, registro profissional e tratamentos quando fornecidas pela clínica; não invente avaliações nem especialidades.
+- Após publicar, confira HTTPS, resposta 200, canonical, ausência de `noindex`, sitemap e eventuais cabeçalhos `X-Robots-Tag` da hospedagem. Valide os dados estruturados no Rich Results Test e acompanhe Search Console e PageSpeed Insights.
+- SEO não garante a primeira posição nem indexação imediata. Acompanhe as consultas de marca e a evolução de impressões e cliques no Search Console.
+
+Referências: [SEO do Google](https://developers.google.com/search/docs/fundamentals/seo-starter-guide), [dados de negócio local](https://developers.google.com/search/docs/appearance/structured-data/local-business).
